@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Seller - Tuna Delight</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .best-seller-hero {
+            background: linear-gradient(135deg, #ff6b35, #ff8e53);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .best-seller-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff6b35;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-stats {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.8em;
+        }
+
+        .rating-stars {
+            color: #ffd54f;
+            margin-right: 5px;
+        }
+
+        .best-seller-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .best-seller-product {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .best-seller-product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+        }
+
+        .best-seller-product img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h3 {
+            color: #1565c0;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .product-info .price {
+            font-weight: bold;
+            color: #1976d2;
+            font-size: 1.4em;
+            margin: 15px 0;
+        }
+
+        .best-seller-btn {
+            background: linear-gradient(45deg, #ff6b35, #ff8e53);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        .best-seller-btn:hover {
+            background: linear-gradient(45deg, #e55a2b, #ff7b42);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🐟 Tuna Delight 🐟</h1>
+        <p>Specialis Bakso & Nugget Ikan Tuna Premium Berkualitas! 🎣</p>
+    </header>
+
+    <nav>
+        <div class="logo">Tuna Delight</div>
+        <div class="nav-links">
+            <a href="home.html" class="nav-link">Beranda</a>
+            <a href="index.html" class="nav-link">Produk</a>
+            <a href="best-seller.html" class="nav-link active">🔥 Best Seller</a>
+        </div>
+        <div class="cart" onclick="openCart()">🛒 Keranjang <span id="cart-count">0</span></div>
+    </nav>
+
+    <section class="best-seller-hero">
+        <div class="hero-content">
+            <h2>🔥 Produk Terlaris Kami!</h2>
+            <p>Produk paling populer yang selalu jadi favorit pelanggan</p>
+        </div>
+    </section>
+
+    <div class="best-seller-grid" id="best-seller-grid">
+        <!-- Best seller products will be loaded by JavaScript -->
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tuna Delight. Specialis Bakso & Nugget Ikan Tuna. Hubungi kami: order@tunadelight.com 📧 | Jam Operasional: 08:00 - 22:00</p>
+    </footer>
+
+    <script>
+        // Best seller products data
+        const bestSellerProducts = [
+            {
+                id: 1,
+                name: 'Bakso Tuna Original Premium',
+                desc: 'Bakso ikan tuna dengan rasa original yang gurih dan tekstur kenyal sempurna. Dibuat dari 100% daging tuna pilihan.',
+                price: 45000,
+                category: 'bakso',
+                img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop&auto=format',
+                sold: 250,
+                rating: 4.9
+            },
+            {
+                id: 4,
+                name: 'Nugget Tuna Crispy',
+                desc: 'Nugget ikan tuna dengan lapisan crispy golden brown yang sempurna. Cocok untuk camilan keluarga.',
+                price: 32000,
+                category: 'nugget',
+                img: 'https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=400&h=300&fit=crop&auto=format',
+                sold: 180,
+                rating: 4.8
+            },
+            {
+                id: 9,
+                name: 'Bakso Tuna Komplit Special',
+                desc: 'Paket bakso tuna lengkap dengan kuah kaldu tulang sapi yang gurih dan berbagai pelengkap spesial!',
+                price: 65000,
+                category: 'promo',
+                img: 'https://images.unsplash.com/photo-1555072956-7758af8e8e39?w=400&h=300&fit=crop&auto=format',
+                sold: 120,
+                rating: 4.9
+            },
+            {
+                id: 3,
+                name: 'Bakso Tuna Keju Mozzarella',
+                desc: 'Bakso tuna premium dengan isian keju mozzarella yang lumer di mulut! Sensasi ledakan keju yang nikmat.',
+                price: 52000,
+                category: 'bakso',
+                img: 'https://images.unsplash.com/photo-1563379922898-7b23deea60a7?w=400&h=300&fit=crop&auto=format',
+                sold: 95,
+                rating: 4.7
+            }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function displayBestSellers() {
+            const grid = document.getElementById('best-seller-grid');
+            grid.innerHTML = bestSellerProducts.map(product => `
+                <div class="best-seller-product">
+                    <div class="product-image-container">
+                        <img src="${product.img}" alt="${product.name}">
+                        <div class="best-seller-badge">🔥 Best Seller</div>
+                        <div class="product-stats">
+                            <span><span class="rating-stars">⭐</span> ${product.rating}</span>
+                            <span>📦 ${product.sold}+ terjual</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p>${product.desc}</p>
+                        <p class="price">Rp ${product.price.toLocaleString('id-ID')}</p>
+                        <button onclick="addToCart(${product.id})" class="best-seller-btn">
+                            🛒 Tambah ke Keranjang
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = bestSellerProducts.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    img: product.img
+                });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show notification
+            showNotification('Produk berhasil ditambahkan ke keranjang! 🎉');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #4caf50, #66bb6a);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        function updateCartCount() {
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = total;
+        }
+
+        function openCart() {
+            alert('Fitur keranjang lengkap tersedia di halaman produk utama');
+            window.location.href = 'index.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayBestSellers();
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

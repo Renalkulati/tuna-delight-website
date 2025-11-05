@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Tuna Delight</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <!-- Login Section dengan Design Premium -->
+    <div id="login-section" class="login-section active">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo">
+                    <span class="logo-icon">🐟</span>
+                    <h1>Tuna Delight</h1>
+                    <span class="logo-subtitle">Admin Panel</span>
+                </div>
+            </div>
+            
+            <div class="login-content">
+                <div class="login-card">
+                    <div class="login-animation">
+                        <div class="floating-fish"></div>
+                        <div class="floating-bubble bubble-1"></div>
+                        <div class="floating-bubble bubble-2"></div>
+                        <div class="floating-bubble bubble-3"></div>
+                    </div>
+                    
+                    <h2>🔐 Masuk ke Dashboard</h2>
+                    <p class="login-description">Kelola toko Tuna Delight Anda dengan mudah</p>
+                    
+                    <form id="admin-login" class="login-form">
+                        <div class="input-group">
+                            <div class="input-icon">👤</div>
+                            <input type="text" id="username" placeholder="Username" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="input-icon">🔒</div>
+                            <input type="password" id="password" placeholder="Password" required>
+                        </div>
+                        
+                        <button type="submit" class="login-btn">
+                            <span class="btn-text">Masuk ke Dashboard</span>
+                            <span class="btn-icon">🚀</span>
+                        </button>
+                    </form>
+                    
+                    <div class="login-footer">
+                        <p><small>Default credentials: <strong>admin</strong> / <strong>password123</strong></small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Premium -->
+    <div id="admin-dashboard" class="admin-dashboard hidden">
+        <!-- Header Admin -->
+        <header class="admin-header">
+            <div class="header-left">
+                <div class="brand">
+                    <span class="brand-icon">🐟</span>
+                    <div>
+                        <h1>Tuna Delight</h1>
+                        <span class="brand-subtitle">Admin Dashboard</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="admin-info">
+                    <div class="admin-avatar">A</div>
+                    <span class="admin-name">Administrator</span>
+                </div>
+                <button onclick="logout()" class="logout-btn">
+                    <span class="logout-icon">🚪</span>
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="admin-main">
+            <!-- Sidebar Navigation -->
+            <nav class="admin-sidebar">
+                <div class="sidebar-menu">
+                    <!-- Tambahkan di sidebar menu admin.html -->
+                    <div class="menu-item" onclick="window.location.href='transactions.html'">
+                        <span class="menu-icon">💳</span>
+                        <span class="menu-text">Transaksi</span>
+                    </div>
+                    <div class="menu-item active" onclick="showAdminSection('dashboard')">
+                        <span class="menu-icon">📊</span>
+                        <span class="menu-text">Dashboard</span>
+                        <span class="menu-badge" id="dashboard-badge"></span>
+                    </div>
+                    
+                    <div class="menu-item" onclick="showAdminSection('products')">
+                        <span class="menu-icon">📦</span>
+                        <span class="menu-text">Manajemen Produk</span>
+                        <span class="menu-badge" id="products-badge">0</span>
+                    </div>
+                    
+                    <div class="menu-item" onclick="showAdminSection('transactions')">
+                        <span class="menu-icon">💳</span>
+                        <span class="menu-text">Manajemen Transaksi</span>
+                        <span class="menu-badge" id="transactions-badge">0</span>
+                    </div>
+                    
+                    <div class="menu-item" onclick="showAdminSection('banners')">
+                        <span class="menu-icon">🖼️</span>
+                        <span class="menu-text">Manajemen Banner</span>
+                        <span class="menu-badge" id="banners-badge">0</span>
+                    </div>
+                    
+                    <div class="menu-item" onclick="showAdminSection('payments')">
+                        <span class="menu-icon">💰</span>
+                        <span class="menu-text">Verifikasi Pembayaran</span>
+                        <span class="menu-badge badge-alert" id="payments-badge">0</span>
+                    </div>
+                    
+                    <div class="menu-item" onclick="goToHomepage()">
+                        <span class="menu-icon">🏠</span>
+                        <span class="menu-text">Kembali ke Home</span>
+                    </div>
+                </div>
+                
+                <div class="sidebar-footer">
+                    <div class="system-status">
+                        <div class="status-indicator online"></div>
+                        <span>Sistem Online</span>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+                <!-- Dashboard Overview -->
+                <section id="admin-dashboard-section" class="admin-section active">
+                    <div class="section-header">
+                        <h2>📊 Dashboard Overview</h2>
+                        <p class="section-subtitle">Ringkasan performa toko Tuna Delight</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card primary">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-info">
+                                <h3>Total Produk</h3>
+                                <span class="stat-number" id="total-products">0</span>
+                                <span class="stat-trend">+5% dari bulan lalu</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card success">
+                            <div class="stat-icon">💳</div>
+                            <div class="stat-info">
+                                <h3>Total Transaksi</h3>
+                                <span class="stat-number" id="total-transactions">0</span>
+                                <span class="stat-trend">+12% dari bulan lalu</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card warning">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-info">
+                                <h3>Total Pendapatan</h3>
+                                <span class="stat-number" id="total-revenue">Rp 0</span>
+                                <span class="stat-trend">+8% dari bulan lalu</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card danger">
+                            <div class="stat-icon">⏳</div>
+                            <div class="stat-info">
+                                <h3>Menunggu Verifikasi</h3>
+                                <span class="stat-number" id="pending-verification">0</span>
+                                <span class="stat-trend">Perlu perhatian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h3>🚀 Quick Actions</h3>
+                        <div class="actions-grid">
+                            <button class="action-btn" onclick="showAdminSection('products')">
+                                <span class="action-icon">➕</span>
+                                <span>Tambah Produk Baru</span>
+                            </button>
+                            <button class="action-btn" onclick="showAdminSection('banners')">
+                                <span class="action-icon">🎨</span>
+                                <span>Kelola Banner</span>
+                            </button>
+                            <button class="action-btn" onclick="showAdminSection('payments')">
+                                <span class="action-icon">✅</span>
+                                <span>Verifikasi Pembayaran</span>
+                            </button>
+                            <button class="action-btn" onclick="generateReport()">
+                                <span class="action-icon">📄</span>
+                                <span>Generate Laporan</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h3>📈 Aktivitas Terbaru</h3>
+                        <div class="activity-list" id="activity-list">
+                            <!-- Aktivitas akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Manajemen Produk -->
+                <section id="admin-products-section" class="admin-section">
+                    <div class="section-header">
+                        <div class="header-content">
+                            <h2>📦 Manajemen Produk</h2>
+                            <p class="section-subtitle">Kelola produk Tuna Delight Anda</p>
+                        </div>
+                        <button onclick="openProductForm()" class="add-btn">
+                            <span class="btn-icon">➕</span>
+                            Tambah Produk Baru
+                        </button>
+                    </div>
+                    
+                    <div class="products-controls">
+                        <div class="search-box">
+                            <input type="text" id="product-search" placeholder="🔍 Cari produk...">
+                        </div>
+                        <div class="filter-group">
+                            <select id="category-filter">
+                                <option value="">Semua Kategori</option>
+                                <option value="bakso">Bakso Tuna</option>
+                                <option value="nugget">Nugget Tuna</option>
+                                <option value="olahan">Olahan Lainnya</option>
+                                <option value="promo">Promo Spesial</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Gambar</th>
+                                    <th>Nama Produk</th>
+                                    <th>Kategori</th>
+                                    <th>Harga</th>
+                                    <th>Stok</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <!-- Data produk akan diisi JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="table-footer">
+                        <div class="pagination">
+                            <button class="page-btn">← Prev</button>
+                            <span class="page-info">Halaman 1 dari 1</span>
+                            <button class="page-btn">Next →</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Manajemen Transaksi -->
+                <section id="admin-transactions-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>💳 Manajemen Transaksi</h2>
+                        <p class="section-subtitle">Lihat dan kelola semua transaksi pelanggan</p>
+                    </div>
+                    
+                    <div class="transactions-stats">
+                        <div class="transaction-stat">
+                            <span class="stat-label">Total Transaksi</span>
+                            <span class="stat-value" id="total-transactions-count">0</span>
+                        </div>
+                        <div class="transaction-stat">
+                            <span class="stat-label">Pending</span>
+                            <span class="stat-value pending" id="pending-transactions">0</span>
+                        </div>
+                        <div class="transaction-stat">
+                            <span class="stat-label">Completed</span>
+                            <span class="stat-value completed" id="completed-transactions">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Transaksi</th>
+                                    <th>Customer</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-table-body">
+                                <!-- Data transaksi akan diisi JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Manajemen Banner -->
+                <section id="admin-banners-section" class="admin-section">
+                    <div class="section-header">
+                        <div class="header-content">
+                            <h2>🖼️ Manajemen Banner</h2>
+                            <p class="section-subtitle">Kelola banner promosi untuk homepage</p>
+                        </div>
+                        <button onclick="openBannerForm()" class="add-btn">
+                            <span class="btn-icon">➕</span>
+                            Tambah Banner Baru
+                        </button>
+                    </div>
+                    
+                    <div class="banners-grid" id="banners-grid">
+                        <!-- Banner akan diisi JS -->
+                    </div>
+                </section>
+
+                <!-- Verifikasi Pembayaran -->
+                <section id="admin-payments-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>💰 Verifikasi Pembayaran</h2>
+                        <p class="section-subtitle">Verifikasi bukti transfer dari pelanggan</p>
+                    </div>
+                    
+                    <div class="alert-banner warning">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-content">
+                            <strong>Perhatian!</strong> Terdapat <span id="pending-count">0</span> pembayaran yang menunggu verifikasi.
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Transaksi</th>
+                                    <th>Customer</th>
+                                    <th>Bank</th>
+                                    <th>Total</th>
+                                    <th>Bukti Transfer</th>
+                                    <th>Status</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payments-table-body">
+                                <!-- Data pembayaran akan diisi JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Product Form Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="product-modal-title">➕ Tambah Produk Baru</h3>
+                <button onclick="closeProductForm()" class="close-btn">×</button>
+            </div>
+            <form id="product-form" class="modal-form">
+                <input type="hidden" id="product-id">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>🛍️ Nama Produk</label>
+                        <input type="text" id="product-name" placeholder="Contoh: Bakso Tuna Premium" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🏷️ Kategori</label>
+                        <select id="product-category" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="bakso">Bakso Tuna</option>
+                            <option value="nugget">Nugget Tuna</option>
+                            <option value="olahan">Olahan Lainnya</option>
+                            <option value="promo">Promo Spesial</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>📝 Deskripsi Produk</label>
+                    <textarea id="product-desc" placeholder="Deskripsi lengkap tentang produk..." required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>💰 Harga (Rp)</label>
+                        <input type="number" id="product-price" placeholder="35000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>📦 Stok Tersedia</label>
+                        <input type="number" id="product-stock" placeholder="50" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>🖼️ Gambar Produk (URL)</label>
+                    <input type="url" id="product-img" placeholder="https://example.com/image.jpg" required>
+                    <div class="image-preview" id="product-image-preview"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-icon">💾</span>
+                        Simpan Produk
+                    </button>
+                    <button type="button" onclick="closeProductForm()" class="cancel-btn">
+                        Batal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Banner Form Modal -->
+    <div id="banner-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🎨 Tambah Banner Baru</h3>
+                <button onclick="closeBannerForm()" class="close-btn">×</button>
+            </div>
+            <form id="banner-form" class="modal-form">
+                <div class="form-group">
+                    <label>📢 Judul Banner</label>
+                    <input type="text" id="banner-title" placeholder="Contoh: Promo Spesial Hari Ini" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>🖼️ Gambar Banner (URL)</label>
+                    <input type="url" id="banner-image" placeholder="https://example.com/banner.jpg" required>
+                    <div class="image-preview" id="banner-image-preview"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>🔗 Link Tujuan (Opsional)</label>
+                    <input type="url" id="banner-link" placeholder="https://example.com/promo">
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="banner-active" checked>
+                    <label for="banner-active">Aktifkan Banner</label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-icon">💾</span>
+                        Simpan Banner
+                    </button>
+                    <button type="button" onclick="closeBannerForm()" class="cancel-btn">
+                        Batal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Proof Modal -->
+    <div id="payment-proof-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📸 Bukti Transfer</h3>
+                <button onclick="closePaymentProof()" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="proof-image-container">
+                    <img id="proof-image" src="" alt="Bukti Transfer">
+                </div>
+                <div class="payment-details" id="payment-details">
+                    <!-- Detail pembayaran akan diisi JS -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button onclick="verifyPayment(currentPaymentId, true)" class="verify-btn">
+                    <span class="btn-icon">✅</span>
+                    Verifikasi Pembayaran
+                </button>
+                <button onclick="verifyPayment(currentPaymentId, false)" class="reject-btn">
+                    <span class="btn-icon">❌</span>
+                    Tolak Pembayaran
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="success-notification" class="notification success">
+        <div class="notification-icon">✅</div>
+        <div class="notification-content">
+            <strong>Berhasil!</strong>
+            <span id="success-message">Operasi berhasil dilakukan</span>
+        </div>
+    </div>
+    <!-- Tambahkan SEBELUM script lain -->
+<script src="sync-engine.js"></script>
+<script src="admin-script.js"></script>
+</body>
+</html>

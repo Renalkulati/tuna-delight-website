@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Transaksi - Tuna Delight</title>
+    <link rel="stylesheet" href="struk.css">
+</head>
+<body>
+    <div class="struk-container">
+        <!-- Header -->
+        <header class="struk-header">
+            <div class="header-content">
+                <h1>📋 Riwayat Transaksi</h1>
+                <p>Lihat struk dan riwayat pembelian Anda</p>
+            </div>
+            <div class="header-actions">
+                <button onclick="goToHome()" class="back-btn">
+                    ← Kembali ke Beranda
+                </button>
+                <button onclick="printAllReceipts()" class="print-btn">
+                    🖨️ Cetak Semua
+                </button>
+            </div>
+        </header>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <select id="status-filter" onchange="filterTransactions()">
+                    <option value="all">Semua Status</option>
+                    <option value="completed">Selesai</option>
+                    <option value="pending">Pending</option>
+                    <option value="processing">Diproses</option>
+                    <option value="cancelled">Dibatalkan</option>
+                </select>
+                <select id="period-filter" onchange="filterTransactions()">
+                    <option value="all">Semua Waktu</option>
+                    <option value="today">Hari Ini</option>
+                    <option value="week">Minggu Ini</option>
+                    <option value="month">Bulan Ini</option>
+                    <option value="last3months">3 Bulan Terakhir</option>
+                </select>
+            </div>
+            <div class="search-box">
+                <input type="text" id="search-transactions" placeholder="🔍 Cari transaksi..." oninput="filterTransactions()">
+            </div>
+        </div>
+
+        <!-- Transaction List -->
+        <div class="transactions-list" id="transactions-list">
+            <!-- Daftar transaksi akan diisi JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-icon">📭</div>
+            <h3>Belum Ada Transaksi</h3>
+            <p>Anda belum memiliki riwayat transaksi</p>
+            <button onclick="goToProducts()" class="cta-btn">Mulai Belanja</button>
+        </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receipt-modal" class="modal">
+        <div class="modal-content receipt-modal">
+            <div class="modal-header">
+                <h3>🧾 Struk Pembelian</h3>
+                <div class="modal-actions">
+                    <button onclick="printReceipt()" class="print-btn-small">🖨️ Cetak</button>
+                    <button onclick="closeReceipt()" class="close-btn">×</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="receipt" id="receipt-content">
+                    <!-- Struk akan diisi JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tambahkan SEBELUM script lain -->
+<script src="sync-engine.js"></script>
+<script src="script.js"></script> <!-- atau script lainnya -->
+</body>
+</html>

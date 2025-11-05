@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Bukti Transfer - Tuna Delight</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .upload-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .upload-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .upload-header h2 {
+            color: #1565c0;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .upload-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .notification-info {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .notification-info p {
+            margin: 0;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #1565c0;
+            font-size: 1em;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e3f2fd;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+            background: #fafbfc;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2196f3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        .file-upload {
+            border: 2px dashed #e3f2fd;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .file-upload:hover {
+            border-color: #2196f3;
+            background: #f1f8ff;
+        }
+        
+        .file-upload input {
+            display: none;
+        }
+        
+        .upload-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #1565c0;
+        }
+        
+        #preview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 15px;
+            border-radius: 10px;
+            display: none;
+            border: 2px solid #e3f2fd;
+        }
+        
+        .preview-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .bank-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1565c0;
+        }
+        
+        .bank-info h4 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+        
+        .bank-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .bank-detail {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e3f2fd;
+        }
+        
+        .bank-detail strong {
+            color: #1565c0;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1em;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #1565c0;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid #1565c0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .back-link a:hover {
+            background: #1565c0;
+            color: white;
+        }
+        
+        .auto-filled {
+            background: #f1f8e9 !important;
+            border-color: #4caf50 !important;
+        }
+        
+        .auto-filled-label {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .upload-container {
+                padding: 25px;
+            }
+            
+            .bank-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .upload-header h2 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <div class="upload-header">
+            <h2>📤 Upload Bukti Transfer</h2>
+            <p>Lengkapi data pembayaran Anda untuk proses verifikasi</p>
+        </div>
+        
+        <div class="notification-info">
+            <p>📢 Notifikasi akan otomatis dikirim ke admin setelah upload bukti transfer</p>
+        </div>
+        
+        <form id="payment-upload-form">
+            <div class="bank-info">
+                <h4>💳 Informasi Rekening Tuna Delight</h4>
+                <div class="bank-details">
+                    <div class="bank-detail">
+                        <strong>BCA</strong>
+                        1234567890<br>
+                        <strong>Tuna Delight</strong>
+                    </div>
+                    <div class="bank-detail">
+                        <strong>BRI</strong>
+                        0987654321<br>
+                        <strong>Tuna Delight</strong>
+                    </div>
+                    <div class="bank-detail">
+                        <strong>Mandiri</strong>
+                        1122334455<br>
+                        <strong>Tuna Delight</strong>
+                    </div>
+                    <div class="bank-detail">
+                        <strong>BNI</strong>
+                        5566778899<br>
+                        <strong>Tuna Delight</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label id="order-id-label">🆔 Order ID:</label>
+                <input type="text" id="order-id" placeholder="Contoh: TRX-123456" required>
+            </div>
+            
+            <div class="form-group">
+                <label id="sender-name-label">👤 Nama Pengirim:</label>
+                <input type="text" id="sender-name" placeholder="Masukkan nama lengkap pengirim" required>
+            </div>
+            
+            <div class="form-group">
+                <label>🏦 Bank Pengirim:</label>
+                <select id="sender-bank" required>
+                    <option value="">Pilih Bank Pengirim</option>
+                    <option value="BCA">BCA</option>
+                    <option value="BRI">BRI</option>
+                    <option value="Mandiri">Mandiri</option>
+                    <option value="BNI">BNI</option>
+                    <option value="BSI">BSI</option>
+                    <option value="CIMB">CIMB Niaga</option>
+                    <option value="Other">Bank Lainnya</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>🎯 Bank Tujuan:</label>
+                <select id="target-bank" required>
+                    <option value="">Pilih Bank Tujuan</option>
+                    <option value="BCA">BCA - 1234567890 (Tuna Delight)</option>
+                    <option value="BRI">BRI - 0987654321 (Tuna Delight)</option>
+                    <option value="Mandiri">Mandiri - 1122334455 (Tuna Delight)</option>
+                    <option value="BNI">BNI - 5566778899 (Tuna Delight)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label id="amount-label">💰 Jumlah Transfer:</label>
+                <input type="number" id="amount" placeholder="Masukkan jumlah transfer" required>
+            </div>
+            
+            <div class="form-group">
+                <label>📅 Tanggal Transfer:</label>
+                <input type="date" id="transfer-date" required>
+            </div>
+            
+            <div class="form-group">
+                <label>🖼️ Bukti Transfer:</label>
+                <div class="file-upload" onclick="document.getElementById('proof-image').click()">
+                    <div class="upload-icon">📎</div>
+                    <p>Klik untuk upload bukti transfer</p>
+                    <p><small>Format: JPG, PNG, PDF (Maks. 5MB)</small></p>
+                    <input type="file" id="proof-image" accept="image/*,.pdf" required>
+                </div>
+                <div class="preview-container">
+                    <img id="preview" alt="Preview Bukti Transfer">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>📝 Catatan (Opsional):</label>
+                <textarea id="notes" rows="3" placeholder="Tambahkan catatan jika diperlukan..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submit-btn">
+                📤 Kirim Bukti Transfer & Notifikasi
+            </button>
+        </form>
+        
+        <div class="back-link">
+            <a href="home.html">← Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi Notifikasi - DENGAN DATA RENA
+        const NOTIFICATION_CONFIG = {
+            whatsapp: {
+                phone: '6281355533024', // Nomor WhatsApp Rena
+                message: 'Halo Admin Tuna Delight! 📤 Ada bukti transfer baru:'
+            },
+            email: {
+                to: 'renalkulati20@gmail.com', // Email Rena
+                subject: 'Bukti Transfer Baru - Tuna Delight'
+            }
+        };
+
+        // Fungsi untuk mengirim notifikasi bukti transfer
+        function sendPaymentNotification(paymentData) {
+            const message = `
+${NOTIFICATION_CONFIG.whatsapp.message}
+
+💰 *BUKTI TRANSFER BARU*
+🆔 Order ID: ${paymentData.orderId}
+👤 Customer: ${paymentData.senderName}
+🏦 Bank Pengirim: ${paymentData.senderBank}
+🎯 Bank Tujuan: ${paymentData.targetBank}
+💰 Jumlah: Rp ${paymentData.amount.toLocaleString('id-ID')}
+📅 Tanggal: ${paymentData.transferDate}
+
+${paymentData.notes ? `📝 Catatan: ${paymentData.notes}` : ''}
+
+📎 File: ${paymentData.proofFile}
+
+_Silahkan verifikasi pembayaran ini._
+
+---
+Tuna Delight 🐟
+Hubungi: 0813-5553-3024
+            `.trim();
+
+            // Kirim WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${NOTIFICATION_CONFIG.whatsapp.phone}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+
+            // Kirim Email
+            const emailBody = `
+BUKTI TRANSFER BARU - TUNA DELIGHT
+
+Order ID: ${paymentData.orderId}
+Customer: ${paymentData.senderName}
+Bank Pengirim: ${paymentData.senderBank}
+Bank Tujuan: ${paymentData.targetBank}
+Jumlah: Rp ${paymentData.amount.toLocaleString('id-ID')}
+Tanggal: ${paymentData.transferDate}
+
+${paymentData.notes ? `Catatan: ${paymentData.notes}` : ''}
+
+File: ${paymentData.proofFile}
+
+Silakan verifikasi pembayaran ini.
+
+---
+Tuna Delight
+Hubungi: 0813-5553-3024
+Email: renalkulati20@gmail.com
+            `.trim();
+
+            const encodedSubject = encodeURIComponent(NOTIFICATION_CONFIG.email.subject);
+            const encodedBody = encodeURIComponent(emailBody);
+            const emailUrl = `mailto:${NOTIFICATION_CONFIG.email.to}?subject=${encodedSubject}&body=${encodedBody}`;
+            window.location.href = emailUrl;
+        }
+
+        // Auto-fill data dari checkout
+        function autoFillFormData() {
+            const tempOrderData = JSON.parse(localStorage.getItem('temp-order-data'));
+            if (tempOrderData) {
+                document.getElementById('order-id').value = tempOrderData.orderId;
+                document.getElementById('order-id').classList.add('auto-filled');
+                document.getElementById('order-id-label').classList.add('auto-filled-label');
+                
+                document.getElementById('sender-name').value = tempOrderData.customer;
+                document.getElementById('sender-name').classList.add('auto-filled');
+                document.getElementById('sender-name-label').classList.add('auto-filled-label');
+                
+                document.getElementById('amount').value = tempOrderData.amount;
+                document.getElementById('amount').classList.add('auto-filled');
+                document.getElementById('amount-label').classList.add('auto-filled-label');
+                
+                // Set today's date
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('transfer-date').value = today;
+            }
+        }
+
+        // Preview image
+        document.getElementById('proof-image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                    this.value = '';
+                    return;
+                }
+                
+                // Check file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Format file tidak didukung! Gunakan JPG, PNG, atau PDF.');
+                    this.value = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview');
+                    if (file.type.includes('image')) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    } else {
+                        preview.style.display = 'none';
+                        alert('File PDF dipilih. Preview tidak tersedia untuk PDF.');
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission
+        document.getElementById('payment-upload-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const paymentData = {
+                id: 'PAY-' + Date.now(),
+                orderId: document.getElementById('order-id').value,
+                senderName: document.getElementById('sender-name').value,
+                senderBank: document.getElementById('sender-bank').value,
+                targetBank: document.getElementById('target-bank').value,
+                amount: parseInt(document.getElementById('amount').value),
+                transferDate: document.getElementById('transfer-date').value,
+                notes: document.getElementById('notes').value,
+                status: 'pending',
+                date: new Date().toISOString(),
+                proofFile: document.getElementById('proof-image').files[0] ? document.getElementById('proof-image').files[0].name : ''
+            };
+            
+            // Validate amount
+            if (paymentData.amount <= 0) {
+                alert('Jumlah transfer harus lebih dari 0!');
+                return;
+            }
+            
+            // Validate bank selection
+            if (!paymentData.senderBank) {
+                alert('Pilih bank pengirim!');
+                return;
+            }
+            
+            if (!paymentData.targetBank) {
+                alert('Pilih bank tujuan!');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Mengirim...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Save to localStorage
+                let payments = JSON.parse(localStorage.getItem('customer-payments')) || [];
+                payments.push(paymentData);
+                localStorage.setItem('customer-payments', JSON.stringify(payments));
+                
+                // Also save to admin payments
+                let adminPayments = JSON.parse(localStorage.getItem('admin-payments')) || [];
+                adminPayments.push({
+                    ...paymentData,
+                    customer: paymentData.senderName
+                });
+                localStorage.setItem('admin-payments', JSON.stringify(adminPayments));
+                
+                // Update transaction status
+                let transactions = JSON.parse(localStorage.getItem('admin-transactions')) || [];
+                const transactionIndex = transactions.findIndex(t => t.id === paymentData.orderId);
+                if (transactionIndex !== -1) {
+                    transactions[transactionIndex].status = 'payment_uploaded';
+                    localStorage.setItem('admin-transactions', JSON.stringify(transactions));
+                }
+                
+                // Update customer transaction status
+                let customerTransactions = JSON.parse(localStorage.getItem('customer-transactions')) || [];
+                const customerTransactionIndex = customerTransactions.findIndex(t => t.id === paymentData.orderId);
+                if (customerTransactionIndex !== -1) {
+                    customerTransactions[customerTransactionIndex].status = 'payment_uploaded';
+                    localStorage.setItem('customer-transactions', JSON.stringify(customerTransactions));
+                }
+                
+                // KIRIM NOTIFIKASI BUKTI TRANSFER
+                sendPaymentNotification(paymentData);
+                
+                // Clear temporary data
+                localStorage.removeItem('temp-order-data');
+                
+                // Show success notification
+                const successNotification = document.createElement('div');
+                successNotification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #4caf50, #66bb6a);
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                    z-index: 10000;
+                    font-weight: 600;
+                `;
+                successNotification.textContent = '✅ Bukti transfer berhasil dikirim! Notifikasi telah dikirim ke admin. Kembali ke beranda...';
+                document.body.appendChild(successNotification);
+
+                // Redirect to home page setelah 3 detik
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 3000);
+            }, 2000);
+        });
+
+        // Initialize form when page loads
+        window.addEventListener('load', function() {
+            autoFillFormData();
+            
+            // Set today's date as default if not auto-filled
+            if (!document.getElementById('transfer-date').value) {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('transfer-date').value = today;
+            }
+        });
+
+        // Add real-time validation
+        document.getElementById('amount').addEventListener('input', function(e) {
+            if (this.value < 0) {
+                this.value = 0;
+            }
+        });
+    </script>
+</body>
+</html>

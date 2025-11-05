@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuna Delight - Bakso & Nugget Ikan Tuna Premium!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>🐟 Tuna Delight 🐟</h1>
+        <p>Specialis Bakso & Nugget Ikan Tuna Premium Berkualitas! 🎣</p>
+    </header>
+
+    <!-- Navigasi -->
+    <nav>
+        <div class="logo">Tuna Delight</div>
+        <div class="nav-links">
+            <a href="home.html" class="nav-link">🏠 Beranda</a>
+            <a href="#products" class="nav-link active" onclick="showSection('products')">🛍️ Produk</a>
+            <a href="best-seller.html" class="nav-link">🔥 Best Seller</a>
+        </div>
+        <div class="search hidden">
+            <input type="text" id="search-input" placeholder="Cari produk tuna...">
+        </div>
+        <div class="cart" onclick="openCart()">🛒 Keranjang <span id="cart-count">0</span></div>
+    </nav>
+
+    <!-- Container untuk semua section -->
+    <div class="sections-container">
+        <!-- Beranda Section -->
+        <section id="home-section" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h2>Selamat Datang di Tuna Delight! 🌊</h2>
+                    <p class="hero-subtitle">Rasa Laut Terbaik dalam Setiap Gigitan</p>
+                    
+                    <div class="hero-animation">
+                        <div class="fish-animation">
+                            <div class="fish"></div>
+                            <div class="fish fish-2"></div>
+                            <div class="bubble bubble-1"></div>
+                            <div class="bubble bubble-2"></div>
+                            <div class="bubble bubble-3"></div>
+                            <div class="bubble bubble-4"></div>
+                        </div>
+                    </div>
+
+                    <div class="hero-features">
+                        <div class="feature">
+                            <div class="feature-icon">🎯</div>
+                            <h3>100% Tuna Asli</h3>
+                            <p>Dibuat dari daging tuna pilihan tanpa campuran</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Fresh & Higienis</h3>
+                            <p>Diproses dengan teknologi modern dan standar kebersihan</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🚚</div>
+                            <h3>Gratis Ongkir</h3>
+                            <p>Gratis pengiriman untuk pembelian di atas Rp 100.000</p>
+                        </div>
+                    </div>
+
+                    <button class="cta-button" onclick="showSection('products')">Lihat Produk Kami</button>
+                </div>
+            </div>
+
+            <div class="promo-banner">
+                <div class="promo-content">
+                    <h3>🦈 PROMO SPESIAL! 🦈</h3>
+                    <p>Dapatkan <strong>DISKON 20%</strong> untuk pembelian pertama Anda!</p>
+                    <small>Gunakan kode: <strong>TUNAFIRST</strong></small>
+                </div>
+            </div>
+
+            <div class="testimonials">
+                <h2>Apa Kata Pelanggan Kami? 💬</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            "Bakso tunanya lembut dan gurih! Keluarga saya suka sekali!"
+                        </div>
+                        <div class="testimonial-author">- Ibu Sari, Jakarta</div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            "Nugget tuna crispy nya enak banget! Anak-anak jadi doyan makan ikan."
+                        </div>
+                        <div class="testimonial-author">- Budi, Bandung</div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            "Kualitas premium, harga terjangkau. Recommended banget!"
+                        </div>
+                        <div class="testimonial-author">- Rina, Surabaya</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produk Section -->
+        <section id="products-section" class="section">
+            <!-- Kategori -->
+            <div class="categories">
+                <div class="categories-container">
+                    <button class="active" onclick="filterCategory('all')">Semua Produk</button>
+                    <button onclick="filterCategory('bakso')">Bakso Tuna</button>
+                    <button onclick="filterCategory('nugget')">Nugget Tuna</button>
+                    <button onclick="filterCategory('olahan')">Olahan Tuna Lainnya</button>
+                    <button onclick="filterCategory('promo')">Promo Spesial</button>
+                </div>
+            </div>
+
+            <!-- Konten Utama -->
+            <main>
+                <div class="products" id="products-grid">
+                    <!-- Produk akan diisi oleh JS -->
+                </div>
+            </main>
+        </section>
+    </div>
+
+    <!-- Modal-modals -->
+    <!-- Detail Produk Modal -->
+    <div class="product-modal" id="product-modal">
+        <div class="product-detail">
+            <img id="detail-img" src="" alt="" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+            <h3 id="detail-name"></h3>
+            <p id="detail-desc"></p>
+            <p class="price" id="detail-price"></p>
+            <div class="quantity" style="display: flex; justify-content: center; align-items: center; margin: 20px 0; gap: 15px;">
+                <button onclick="changeQuantity(-1)" style="padding: 10px 15px; border: none; background: #1976d2; color: white; border-radius: 5px; cursor: pointer;">-</button>
+                <input type="number" id="detail-quantity" value="1" min="1" max="99" style="width: 60px; text-align: center; padding: 10px; border: 2px solid #e3f2fd; border-radius: 5px;">
+                <button onclick="changeQuantity(1)" style="padding: 10px 15px; border: none; background: #1976d2; color: white; border-radius: 5px; cursor: pointer;">+</button>
+            </div>
+            <button onclick="addToCartFromDetail()" style="background: #ffd54f; border: none; padding: 15px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px;">Tambah ke Keranjang</button>
+            <button onclick="closeProductModal()" style="background: #78909c; color: white; border: none; padding: 15px 30px; border-radius: 25px; cursor: pointer; font-weight: bold; width: 100%;">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Keranjang Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <h2>Keranjang Belanja 🛒</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">Total: Rp <span id="cart-total">0</span></div>
+            <div class="cart-buttons">
+                <button class="close-btn" onclick="closeCart()">Lanjut Belanja</button>
+                <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>Checkout 💳</h2>
+            </div>
+            <div class="checkout-body">
+                <div class="checkout-steps">
+                    <div class="step active">
+                        <span class="step-icon">1</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-icon">2</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-icon">3</span>
+                    </div>
+                </div>
+                
+                <div class="checkout-form">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="nama@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Nomor WhatsApp</label>
+                        <input type="tel" id="phone" placeholder="628123456789" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Alamat Lengkap</label>
+                        <input type="text" id="address" placeholder="Masukkan alamat lengkap pengiriman" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Metode Pembayaran</label>
+                        <div class="payment-methods">
+                            <div class="payment-method selected" data-method="cod" onclick="selectPaymentMethod('cod')">
+                                <span class="payment-icon">💰</span>
+                                <span class="payment-name">COD</span>
+                            </div>
+                            <div class="payment-method" data-method="transfer" onclick="selectPaymentMethod('transfer')">
+                                <span class="payment-icon">🏦</span>
+                                <span class="payment-name">Transfer</span>
+                            </div>
+                            <div class="payment-method" data-method="ewallet" onclick="selectPaymentMethod('ewallet')">
+                                <span class="payment-icon">📱</span>
+                                <span class="payment-name">E-Wallet</span>
+                            </div>
+                        </div>
+                        <select id="payment-method" style="display: none;">
+                            <option value="cod">Bayar di Tempat (COD)</option>
+                            <option value="transfer">Transfer Bank</option>
+                            <option value="ewallet">E-Wallet</option>
+                        </select>
+                    </div>
+                    
+                    <div class="checkout-summary">
+                        <!-- Summary akan diisi oleh JavaScript -->
+                    </div>
+                    
+                    <div class="checkout-buttons">
+                        <button class="checkout-btn-final" onclick="processCheckout()">
+                            Selesaikan Pesanan 🚀
+                        </button>
+                        <button class="back-btn" onclick="closeCheckout()">Kembali ke Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <<!-- Update footer di index.html -->
+<footer>
+    <p>&copy; 2024 Tuna Delight. Specialis Bakso & Nugget Ikan Tuna.</p>
+    <p>Hubungi kami: renalkulati20@gmail.com 📧 | WhatsApp: 0813-5553-3024</p>
+    <p>Jam Operasional: 08:00 - 22:00 WIB</p>
+</footer>
+    <!-- Tambahkan SEBELUM script lain -->
+<script src="sync-engine.js"></script>
+<script src="script.js"></script> <!-- atau script lainnya -->
+</body>
+</html>
